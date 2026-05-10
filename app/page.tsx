@@ -22,7 +22,11 @@ import {
 export default function Home() {
 const [selectedProject, setSelectedProject] = useState<any>(null); 
 const [darkMode, setDarkMode] = useState(false);
+const heroRef = useRef<HTMLElement>(null);
 const aboutRef = useRef<HTMLElement>(null);
+const experienceRef = useRef<HTMLElement>(null);
+const projectsRef = useRef<HTMLElement>(null);
+const contactRef = useRef<HTMLElement>(null);
 
   return (
     <main
@@ -32,26 +36,47 @@ const aboutRef = useRef<HTMLElement>(null);
       : "bg-gradient-to-b from-sky-200 via-cyan-100 to-blue-300 text-slate-900"
   }`}
 >
-      {/* HEADER */}
-    <nav className="fixed top-0 left-0 w-full z-50 bg-black/30 backdrop-blur-md border-b border-white/10">
+     {/* HEADER */}
+<nav className="fixed top-0 left-0 w-full z-50 bg-black/30 backdrop-blur-md border-b border-white/10">
+  <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center text-white font-medium">
+    
+    {/* Left: Name / Hero Link */}
+      <button
+        onClick={() => heroRef.current?.scrollIntoView({ behavior: "smooth" })}
+        className="text-2xl hover:text-cyan-300 transition cursor-pointer"
+      >
+        MMM
+      </button>
 
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-end items-center gap-8 text-white font-medium">
-
-        <a href="#about" className="hover:text-cyan-300 transition">
+      {/* Right: Nav Links + Dark Mode */}
+      <div className="flex items-center gap-8">
+        <button
+          onClick={() => aboutRef.current?.scrollIntoView({ behavior: "smooth" })}
+          className="hover:text-cyan-300 transition"
+        >
           About
-        </a>
+        </button>
 
-        <a href="#experience" className="hover:text-cyan-300 transition">
+        <button
+          onClick={() => experienceRef.current?.scrollIntoView({ behavior: "smooth" })}
+          className="hover:text-cyan-300 transition"
+        >
           Experience
-        </a>
+        </button>
 
-        <a href="#projects" className="hover:text-cyan-300 transition">
+        <button
+          onClick={() => projectsRef.current?.scrollIntoView({ behavior: "smooth" })}
+          className="hover:text-cyan-300 transition"
+        >
           Projects
-        </a>
+        </button>
 
-        <a href="#contact" className="hover:text-cyan-300 transition">
+        <button
+          onClick={() => contactRef.current?.scrollIntoView({ behavior: "smooth" })}
+          className="hover:text-cyan-300 transition"
+        >
           Contact
-        </a>
+        </button>
 
         {/* DARK MODE BUTTON */}
         <button
@@ -60,13 +85,12 @@ const aboutRef = useRef<HTMLElement>(null);
         >
           {darkMode ? <Sun size={18} /> : <Moon size={18} />}
         </button>
-
       </div>
-
-    </nav>
+    </div>
+  </nav>
 
      {/* HERO */}
-    <section className="min-h-screen flex items-center justify-center px-6 pt-20 relative">
+    <section ref={heroRef} className="min-h-screen flex items-center justify-center px-6 pt-20 relative">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -163,7 +187,7 @@ const aboutRef = useRef<HTMLElement>(null);
     </section>
 
     {/* Experience */}
-    <section id="experience" className="py-24 px-6 max-w-5xl mx-auto">
+    <section ref={experienceRef} id="experience" className="py-24 px-6 max-w-5xl mx-auto">
       <h2 className="text-5xl font-black mb-12 flex items-center gap-3">
         <Sparkles className="text-cyan-600" />
         Experience
@@ -179,11 +203,11 @@ const aboutRef = useRef<HTMLElement>(null);
             info: "University of Perpetual Help System Dalta Calamba.", since:"2023 - 2027"},
 
           { name: "First Game Project: World of Fantasy",
-            info: "Created a 2D turn-based strategy RPG from scratch by following tutorials, customizing mechanics, and designing unique levels and characters.",
+            info: "Created a 2D turn-based strategy RPG from scratch using GameMaker by following tutorials, customizing mechanics, and designing unique levels and characters.",
             since:"2025"},
 
           { name: "Second Game Project: Outbreak Extraction",
-            info: "Created a 3D third-person survival horror game from scratch, implementing AI zombies, gameplay systems, and interactive environments, while learning through tutorials.",
+            info: "Created a 3D third-person survival horror game from scratch using Unity, implementing AI zombies, gameplay systems, and interactive environments, while learning through tutorials.",
             since: "2025"}
 
         ].map((experience) => (
@@ -197,8 +221,21 @@ const aboutRef = useRef<HTMLElement>(null);
                 {experience.name}
               </h3>
               <p className={`${darkMode ? "text-slate-300" : "text-slate-700"} mt-1`}>
-                {experience.info}
-              </p>
+                  {experience.info.split(" ").map((word, idx) => {
+                    // Highlight specific words
+                    if (word.includes("GameMaker") || word.includes("Unity")) {
+                      return (
+                        <span
+                          key={idx}
+                          className={darkMode ? "text-cyan-400 font-semibold" : "text-cyan-700 font-semibold"}
+                        >
+                          {word}{" "}
+                        </span>
+                      );
+                    }
+                    return word + " ";
+                  })}
+                </p>
               <p className={`${darkMode ? "text-slate-400" : "text-slate-600"} text-sm mt-1`}>
                 {experience.since}
               </p>
@@ -209,7 +246,7 @@ const aboutRef = useRef<HTMLElement>(null);
     </section>
 
     {/* PROJECTS */}
-    <section id="projects" className="py-24 px-6 max-w-6xl mx-auto">
+    <section ref={projectsRef} id="projects" className="py-24 px-6 max-w-6xl mx-auto">
       <h2 className={`text-5xl font-black mb-12 ${darkMode ? "text-white" : "text-slate-900"}`}>
         Projects
       </h2>
@@ -277,7 +314,7 @@ const aboutRef = useRef<HTMLElement>(null);
     </section>
 
       {/* CONTACT */}
-    <section id="contact" className="py-24 px-6">
+    <section ref={contactRef} id="contact" className="py-24 px-6">
       <div className="max-w-4xl mx-auto text-center">
         <h2 className={`text-5xl font-black mb-8 ${darkMode ? "text-white" : "text-slate-900"}`}>
           Contact
