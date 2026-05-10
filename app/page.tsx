@@ -195,7 +195,7 @@ const [selectedProject, setSelectedProject] = useState<any>(null);
             </a>
 
             <a
-              href="https://www.facebook.com/toshiro.hitzugaya.1"
+              href="https://www.facebook.com/"
               target="_blank"
               className="bg-white/50 p-5 rounded-2xl shadow-lg hover:scale-110 transition"
             >
