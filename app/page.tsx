@@ -4,6 +4,10 @@ import { useState, useRef } from "react";
 
 import { motion } from "framer-motion";
 
+import { SiUnity, SiGamemaker, SiBlender } from "react-icons/si";
+import { MdBugReport } from "react-icons/md";
+import { Code } from "lucide-react"; // icon for the Tech Stack heading
+
 import {
   Mail,
   Gamepad2,
@@ -24,6 +28,7 @@ const [selectedProject, setSelectedProject] = useState<any>(null);
 const [darkMode, setDarkMode] = useState(false);
 const heroRef = useRef<HTMLElement>(null);
 const aboutRef = useRef<HTMLElement>(null);
+const techStackRef = useRef<HTMLElement>(null);
 const experienceRef = useRef<HTMLElement>(null);
 const projectsRef = useRef<HTMLElement>(null);
 const contactRef = useRef<HTMLElement>(null);
@@ -55,6 +60,13 @@ const contactRef = useRef<HTMLElement>(null);
           className="hover:text-cyan-300 transition"
         >
           About
+        </button>
+
+        <button
+          onClick={() => techStackRef.current?.scrollIntoView({ behavior: "smooth" })}
+          className="hover:text-cyan-300 transition"
+        >
+          Tech Stack
         </button>
 
         <button
@@ -176,15 +188,46 @@ const contactRef = useRef<HTMLElement>(null);
           {/* About Text */}
           <div className={`backdrop-blur-lg rounded-3xl p-6 shadow-xl flex-1 ${darkMode ? "bg-white/10" : "bg-white/40"}`}>
             <p className={`${darkMode ? "text-slate-200" : "text-slate-900"} text-lg md:text-xl`}>
-              I am a 4th-year BSIT student specializing in Game Development at the University of Perpetual Help System Dalta Calamba. 
-              I am passionate about creating games and interactive experiences, 
-              and I am currently developing my programming and game design skills through personal projects and tutorials. 
-              I am eager to contribute to real-world projects and learn from industry professionals.
+             I am a 4th-year BSIT student specializing in Game Development at the University of Perpetual Help System Dalta Calamba. 
+             I create engaging games while thoroughly testing and debugging them to ensure quality gameplay, 
+             which has also strengthened my interest in Quality Assurance. I am eager to contribute to real-world projects 
+             and continue learning from industry professionals.
             </p>
           </div>
         </div>
       </motion.div>
     </section>
+
+      {/* Tech Stack */}
+      <section ref={techStackRef} className="py-16 px-6 max-w-5xl mx-auto">
+        <h2 className="text-4xl font-black mb-8 flex items-center gap-3">
+          <Code className="text-cyan-600" />
+          Tech Stack
+        </h2>
+
+        <div className="flex flex-wrap gap-4">
+          {[
+            { name: "Unity", icon: <SiUnity size={20} /> },
+            { name: "GameMaker", icon: <SiGamemaker size={20} /> },
+            { name: "Blender (Basic)", icon: <SiBlender size={20} /> },
+            { name: "Game Testing", icon: <MdBugReport size={20} /> },
+            { name: "Debugging", icon: <MdBugReport size={20} /> },
+            { name: "Quality Assurance", icon: <MdBugReport size={20} /> },
+          ].map((tech) => (
+            <div
+              key={tech.name}
+              className={`flex items-center gap-2 px-5 py-3 rounded-2xl font-semibold ${
+                darkMode
+                  ? "bg-white/10 text-cyan-400"
+                  : "bg-white/40 text-cyan-700"
+              }`}
+            >
+              {tech.icon}
+              {tech.name}
+            </div>
+          ))}
+        </div>
+      </section>
 
     {/* Experience */}
     <section ref={experienceRef} id="experience" className="py-24 px-6 max-w-5xl mx-auto">
@@ -196,18 +239,18 @@ const contactRef = useRef<HTMLElement>(null);
       <div className="relative border-l-2 border-cyan-500 pl-8 space-y-8">
         {[
           { name: "Hello World", 
-            info: "My first line of code.", 
+            info: "Began learning programming fundamentals and developing an interest in creating games.", 
             since: "2017" },
 
           { name: "BS in Information Technology with Specialization in Game Development", 
-            info: "University of Perpetual Help System Dalta Calamba.", since:"2023 - 2027"},
+            info: "Studied at University of Perpetual Help System Dalta Calamba", since:"2023"},
 
           { name: "First Game Project: World of Fantasy",
-            info: "Created a 2D turn-based strategy RPG from scratch using GameMaker by following tutorials, customizing mechanics, and designing unique levels and characters.",
+            info: "Developed a 2D turn-based strategy RPG using GameMaker, featuring custom combat mechanics, level design, and character systems.",
             since:"2025"},
 
           { name: "Second Game Project: Outbreak Extraction",
-            info: "Created a 3D third-person survival horror game from scratch using Unity, implementing AI zombies, gameplay systems, and interactive environments, while learning through tutorials.",
+            info: "Developed a 3D third-person survival horror game using Unity with zombie AI, gameplay systems, and interactive environments.",
             since: "2025"}
 
         ].map((experience) => (
@@ -258,33 +301,36 @@ const contactRef = useRef<HTMLElement>(null);
             title: "World of Fantasy",
             image: "/projects/game1.png",
             video: "/projects/game1.mp4",
-            desc: "2D turn-based strategy RPG set in the magical city of Eldoria, where an ancient evil has awakened.",
+            desc: "A 2D turn-based strategy RPG set in the fantasy city of Eldoria, where players battle against an ancient evil threatening the kingdom.",
             fulldesc: `
               World of Fantasy is a turn-based strategy game set in the city of Eldoria, which faces a looming threat as an ancient evil resurfaces. Players take control of five distinct adventurers, each with unique abilities, as they work together to defend their homeland.
 
               This project is a fan-inspired work influenced by the Final Fantasy series. All sprites and background music used in this game are credited to Square Enix and are not original assets created by me.
             `,
-            details: "Features: turn-based combat, magic system, pixel. Built using GameMaker.",
+            details: "Developed turn-based combat mechanics, magic systems, level design, and gameplay testing using GameMaker.",
           },
           {
             id: 2,
             title: "Outbreak: Extraction",
             image: "/projects/game2.png",
             video: "/projects/game2.mp4",
-            desc: "3D Third person shooter is a fast-paced survival horror/action-adventure game set during a deadly zombie outbreak.",
+            desc: "A 3D third-person survival horror game set during a deadly zombie outbreak.",
             fulldesc: `
               Outbreak: Extraction is a fast-paced survival horror and action-adventure game set in the midst of a deadly zombie outbreak.
               Players take on the role of a survivor tasked with rescuing trapped hostages and safely extracting them by locating an escape vehicle, all while navigating city streets overwhelmed by the infected.
 
               The game is inspired by titles such as Resident Evil, Days Gone, and Left 4 Dead, combining intense combat, strategic decision-making, and high-pressure survival objectives.
             `,
-            details: "Features: third-person, AI zombies, survival mechanics. Built using Unity.",
+            details: "Implemented zombie AI, gameplay systems, debugging, and testing for survival mechanics using Unity and C#.",
           },
         ].map((project) => (
           <motion.div
-            whileHover={{ y: -10 }}
+            whileHover={{
+              y: -10,
+              scale: 1.02,
+            }}
             key={project.id}
-            className={`rounded-3xl overflow-hidden shadow-xl ${darkMode ? "bg-white/10" : "bg-white/40"}`}
+            className={`rounded-3xl overflow-hidden shadow-xl flex flex-col ${darkMode ? "bg-white/10" : "bg-white/40"}`}
           >
             <img
               src={project.image}
@@ -292,7 +338,7 @@ const contactRef = useRef<HTMLElement>(null);
               className="h-48 w-full object-cover"
             />
 
-            <div className="p-6">
+            <div className="p-6 flex flex-col flex-1">
               <h3 className={`text-2xl font-black mb-3 ${darkMode ? "text-white" : "text-slate-900"}`}>
                 {project.title}
               </h3>
@@ -303,7 +349,7 @@ const contactRef = useRef<HTMLElement>(null);
 
               <button
                 onClick={() => setSelectedProject(project)}
-                className="bg-cyan-500 hover:bg-cyan-400 transition px-5 py-3 rounded-xl text-white font-bold cursor-pointer"
+                className="mt-auto bg-cyan-500 hover:bg-cyan-400 transition px-5 py-3 rounded-xl text-white font-bold cursor-pointer"
               >
                 View Details
               </button>
